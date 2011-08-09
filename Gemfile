@@ -31,6 +31,7 @@ gem 'sqlite3'
 # end
 
 # Heroku用
+gem 'heroku'
 gem 'rake', '0.8.7'
 
 gem 'twitter-auth', :require => 'twitter_auth/engine', :git => 'git://github.com/rokudenashi/twitter-auth.git', :branch => 'rails_3'
