@@ -43,3 +43,10 @@ module Roomz
     config.filter_parameters += [:password]
   end
 end
+
+module TwitterAuth
+  def self.config( environment = Rails.env )
+    @config ||= {}
+    @config[environment] ||= YAML.load(ERB.new(File.read("#{Rails.root}/config/twitter_auth.yml")).result)[environment]
+  end
+end

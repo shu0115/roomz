@@ -14,7 +14,6 @@
   <%# ログイン判定 %>
   <% unless session[:user_id].blank? %>
     <%# ログイン後 %>
-    <span class="<%= 'now_page' if params[:controller] == 'rooms' or params[:menu] == 'rooms' %>"><%= link_to t("menu.room"), { :controller => "rooms" } %></span>
     <%= link_to t("menu.logout"), logout_path, :confirm => 'ログアウトしますか？' %>
   <% else %>
     <%# ログイン前 %>
