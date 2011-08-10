@@ -2,3 +2,22 @@
 
 Room for Tweet.
 
+= Local Setting
+
+config/local_setting.rb
+
+  # Twitter OAuth Local Setting
+  LOCAL_OAUTH_CONSUMER_KEY = "YOUR_CONSUMER_KEY"
+  LOCAL_OAUTH_CONSUMER_SECRET = "YOUR_CONSUMER_SECRET"
+
+config/environments/development.rb
+
+  Roomz::Application.configure do
+    〜
+    # Twitter OAuth Local Setting
+    require "#{Rails.root}/config/local_setting.rb"
+  end
+
+= Copyright
+
+Copyright (c) 2011 Shun Matsumoto.

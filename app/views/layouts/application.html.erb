@@ -6,9 +6,24 @@
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 </head>
+
 <body>
+
+<%# ヘッダメニュー %>
+<span class="header_menu menu">
+  <%# ログイン判定 %>
+  <% unless session[:user_id].blank? %>
+    <%# ログイン後 %>
+    <span class="<%= 'now_page' if params[:controller] == 'rooms' or params[:menu] == 'rooms' %>"><%= link_to t("menu.room"), { :controller => "rooms" } %></span>
+    <%= link_to t("menu.logout"), logout_path, :confirm => 'ログアウトしますか？' %>
+  <% else %>
+    <%# ログイン前 %>
+    <%= link_to t("menu.login"), login_path %>
+  <% end %>
+</span>
 
 <%= yield %>
 
 </body>
+
 </html>
