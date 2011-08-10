@@ -27,6 +27,11 @@ config/application.rb
     end
   end
 
+config/environments/production.rb
+
+  LOCAL_OAUTH_CONSUMER_KEY = ""
+  LOCAL_OAUTH_CONSUMER_SECRET = ""
+
 = Copyright
 
 Copyright (c) 2011 Shun Matsumoto.
