@@ -1,31 +1,45 @@
-<h1>Listing rooms</h1>
 
-<p id="notice"><%= notice %></p>
+<p id="notice"><%= Utility.replace_message( notice ) %></p>
 
 <table>
   <tr>
-    <th>User</th>
-    <th>Name</th>
-    <th>Hash tag</th>
-    <th>Site</th>
+    <th><%= t("room.hash_tag") %></th>
+    <th><%= t("room.site") %></th>
+    <th><%= t("room.user") %></th>
+    <% unless session[:user_id].blank? %>
     <th></th>
     <th></th>
-    <th></th>
+    <% end %>
   </tr>
 
 <% @rooms.each do |room| %>
-  <tr>
-    <td><%= room.user_id %></td>
-    <td><%= room.name %></td>
-    <td><%= room.hash_tag %></td>
+  <tr class="top_line">
+    <td><%= link_to room.hash_tag, room %></td>
     <td><%= room.site %></td>
-    <td><%= link_to 'Show', room %></td>
-    <td><%= link_to 'Edit', edit_room_path(room) %></td>
-    <td><%= link_to 'Destroy', room, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td align="center"><%= link_to image_tag( room.user.profile_image_url, :size => t("user.profile_size"), :alt => t("user.icon_alt"), :title => "#{room.user.login}／#{room.user.name}" ), "http://twitter.com/#!/#{room.user.login}", :target => "_blank" unless room.user.blank? %></td>
+    <% unless session[:user_id].blank? %>
+    <td class="menu"><%= link_to t("menu.edit"), edit_room_path(room) %></td>
+    <td class="menu"><%= link_to t("menu.destroy"), room, :confirm => '本当に削除してよろしいですか？', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
+
+  <tr class="top_line">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
 </table>
 
+<% unless session[:user_id].blank? %>
 <br />
 
-<%= link_to 'New Room', new_room_path %>
+<span class="menu">
+  <%= link_to t("menu.new"), new_room_path %>
+</span>
+<% end %>
+
+<br />
+<br />

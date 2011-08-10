@@ -1,0 +1,66 @@
+
+<%# ---------- Tweetページング ---------- %>
+<div class="pagination">
+  <% if !params[:tweet_page].blank? and !(params[:tweet_page].to_i == 1) %>
+    <%= link_to t("menu.prev"), { :action => "show", :anchor => "tweet_top", :id => params[:id], :tweet_page => ( params[:tweet_page].to_i - 1 ) }, :class => "prev_page", :rel => "prev start" %>
+  <% else %>
+  <span class="disabled prev_page"><%= t("menu.prev") %></span>
+  <% end %>
+
+  <%# 最初4ページ %>
+  <% 1.upto(4) { |count| %>
+    <% if count == params[:tweet_page].to_i %>
+      <%# カレントページ %>
+      <%= link_to params[:tweet_page], { :action => "show", :anchor => "tweet_top", :reload => rand(100), :id => params[:id], :tweet_page => params[:tweet_page] }, :class => "current_link" %>
+    <% else %>
+      <%= link_to count, { :action => "show", :anchor => "tweet_top", :id => params[:id], :tweet_page => count } %>
+    <% end %>
+  <% } %>
+
+  <%# ページ番号が7より大きければ %>
+  <% if 7 < params[:tweet_page].to_i %>
+    <span class="gap">...</span>
+  <% end %>
+
+  <%# ページ番号-2～ページ番号-1 %>
+  <% (params[:tweet_page].to_i - 2).upto(params[:tweet_page].to_i - 1) { |count| %>
+    <% if 4 < count and !( ( (1500 / $per_page) - 3 ) <= count ) %>
+      <%= link_to count, { :action => "show", :anchor => "tweet_top", :id => params[:id], :tweet_page => count } %>
+    <% end %>
+  <% } %>
+
+  <%# カレントページ %>
+  <%# ページ番号が最初4ページ／最後4ページに含まれていなければ %>
+  <% unless ( 1 <= params[:tweet_page].to_i and params[:tweet_page].to_i <= 4 ) or ( ( (1500 / $per_page) - 3 ) <= params[:tweet_page].to_i and params[:tweet_page].to_i <= ( 1500 / $per_page ) ) %>
+    <%= link_to params[:tweet_page], { :action => "show", :anchor => "tweet_top", :reload => rand(100), :id => params[:id], :tweet_page => params[:tweet_page] }, :class => "current_link" %>
+  <% end %>
+
+  <%# ページ番号+1～ページ番号+2 %>
+  <% (params[:tweet_page].to_i + 1).upto(params[:tweet_page].to_i + 2) { |count| %>
+    <% if count < ( (1500 / $per_page) - 3 ) and !(count <= 4) %>
+      <%= link_to count, { :action => "show", :anchor => "tweet_top", :id => params[:id], :tweet_page => count } %>
+    <% end %>
+  <% } %>
+
+  <%# ページ番号がMAXページ-6より小さければ %>
+  <% if params[:tweet_page].to_i < ( (1500 / $per_page) - 6 ) %>
+    <span class="gap">...</span>
+  <% end %>
+  
+  <%# 最後4ページ %>
+  <% ( (1500 / $per_page) - 3 ).upto( 1500 / $per_page ) { |count| %>
+    <% if count == params[:tweet_page].to_i %>
+      <%# カレントページ %>
+      <%= link_to params[:tweet_page], { :action => "show", :anchor => "tweet_top", :reload => rand(100), :id => params[:id], :tweet_page => params[:tweet_page] }, :class => "current_link" %>
+    <% else %>
+      <%= link_to count, { :action => "show", :anchor => "tweet_top", :id => params[:id], :tweet_page => count } %>
+    <% end %>
+  <% } %>
+
+  <% unless params[:tweet_page].to_i == ( 1500 / $per_page ) %>
+    <%= link_to t("menu.next"), { :action => "show", :anchor => "tweet_top", :id => params[:id], :tweet_page => ( params[:tweet_page].to_i + 1 ) }, :class => "next_page", :rel => "next" %>
+  <% else %>
+    <span class="disabled next_page"><%= t("menu.next") %></span>
+  <% end %>
+</div>
+<%# ---------- ／ Tweetページング ---------- %>

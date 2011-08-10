@@ -2,12 +2,16 @@
 <html>
 <head>
   <title>Roomz</title>
-  <%= stylesheet_link_tag :all %>
+  <%#= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag 'base' %>
+  <%= stylesheet_link_tag 'base_override' %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 </head>
 
 <body>
+
+<div class="page_box">
 
 <%# ヘッダメニュー %>
 <span class="header_menu menu">
@@ -21,7 +25,17 @@
   <% end %>
 </span>
 
+<%# タイトル %>
+<span id="title">
+  <%= link_to t("menu.title"), :root %>
+</span>
+
+<br />
+<br />
+
 <%= yield %>
+
+</div>
 
 </body>
 

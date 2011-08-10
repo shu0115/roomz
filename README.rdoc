@@ -18,6 +18,15 @@ config/environments/development.rb
     require "#{Rails.root}/config/local_setting.rb"
   end
 
+config/application.rb
+
+  module TwitterAuth
+    def self.config( environment = Rails.env )
+      @config ||= {}
+      @config[environment] ||= YAML.load(ERB.new(File.read("#{Rails.root}/config/twitter_auth.yml")).result)[environment]
+    end
+  end
+
 = Copyright
 
 Copyright (c) 2011 Shun Matsumoto.

@@ -1,0 +1,18 @@
+
+/* テーブル枠線確認用 */
+td, th {
+  border: 0px solid #aaa;
+}
+
+.pagination .current_link {
+  padding: 2px 5px 2px 5px;
+  margin: 2px;
+  border: 1px solid #94c4eb;
+  font-weight: bold;
+  background-color: #94c4eb;
+  color: #fff;
+}
+
+#notice {
+  color: green;
+}

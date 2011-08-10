@@ -6,4 +6,28 @@ ja:
     - :year
     - :month
     - :day
-    
+
+  menu:
+    title: Roomz
+    show: Show
+    edit: Edit
+    destroy: Delete
+    new: New
+    create: Create
+    update: Update
+    list: List
+    prev: Prev
+    next: Next
+
+  room:
+    user: オーナー
+    name: 名前
+    hash_tag: ハッシュタグ
+    site: サイトURL
+
+  tweet:
+    post: Tweet
+
+  user:
+    profile_size: "20x20"
+    icon_alt: "icon"

@@ -1,4 +1,6 @@
+
 <%= form_for(@room) do |f| %>
+<%# form_for :room, :url => { :action => "create" } do |f| %>
   <% if @room.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h2>
@@ -11,29 +13,24 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
+  <div>
+    <%= f.label t("room.hash_tag") %><br />
+    <%= f.text_field :hash_tag, :class => "input_field_width_300" %><br />
   </div>
   
-  <% if false %>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <br />
+  <br />
+
+  <div>
+    <%= f.label t("room.site") %><br />
+    <%= f.text_field :site, :class => "input_field_width_300" %><br />
   </div>
-  <% end %>
-  
-  <div class="field">
-    <%= f.label :hash_tag %><br />
-    <%= f.text_field :hash_tag %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :site %><br />
-    <%= f.text_area :site %>
-  </div>
-  
-  <div class="actions">
-    <%= f.submit %>
+
+  <br />
+  <br />
+
+  <div>
+    <%= f.submit t("menu.#{@submit}"), :disable_with => t("menu.#{@submit}") %>
+    <br />
   </div>
 <% end %>
