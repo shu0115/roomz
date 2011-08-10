@@ -46,4 +46,7 @@ Roomz::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  
+  LOCAL_OAUTH_CONSUMER_KEY = ""
+  LOCAL_OAUTH_CONSUMER_SECRET = ""
 end
