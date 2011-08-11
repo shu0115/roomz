@@ -10,6 +10,8 @@ config/local_setting.rb
   LOCAL_OAUTH_CONSUMER_KEY = "YOUR_CONSUMER_KEY"
   LOCAL_OAUTH_CONSUMER_SECRET = "YOUR_CONSUMER_SECRET"
 
+= Add Setting
+
 config/environments/development.rb
 
   Roomz::Application.configure do
@@ -31,6 +33,17 @@ config/environments/production.rb
 
   LOCAL_OAUTH_CONSUMER_KEY = ""
   LOCAL_OAUTH_CONSUMER_SECRET = ""
+
+app/controllers/sessions_controller.rb(New file)
+
+  def oauth_callback
+    〜
+  rescue Net::HTTPServerException => e
+    〜
+  # OAuth Unauthorized Rescue Add
+  rescue OAuth::Unauthorized => e
+    authentication_failed(t('This authentication request is no longer valid Please try again')) and return
+  end
 
 = Copyright
 
