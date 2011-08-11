@@ -7,15 +7,14 @@ class RoomsController < ApplicationController
   # index #
   #-------#
   def index
-    @rooms = Room.all( :include => "user" )
+    @rooms = Room.all( :include => :user )
   end
 
   #-----#
   # new #
   #-----#
   def new
-    @room = Room.new
-    @room.hash_tag = @room.hash_tag.presence || "#"
+    @room = Room.new( :hash_tag => "#")
     
     @submit = "create"
   end
@@ -24,7 +23,8 @@ class RoomsController < ApplicationController
   # edit #
   #------#
   def edit
-    @room = Room.find( params[:id] )
+    @room = Room.where( :id => params[:id] ).first
+    redirect_to :action => "index" and return if @room.blank?
 
     @submit = "update"
   end
@@ -37,7 +37,6 @@ class RoomsController < ApplicationController
     @room.user_id = session[:user_id]
 
     if @room.save
-#      flash[:notice] = "Room was successfully created."
       redirect_to :action => "index"
     else
       render :action => "new"
@@ -48,14 +47,15 @@ class RoomsController < ApplicationController
   # update #
   #--------#
   def update
-    @room = Room.find( params[:id] )
+    @room = Room.where( :id => params[:id] ).first
+    redirect_to :action => "index" and return if @room.blank?
 
     if @room.update_attributes( params[:room] )
-#      flash[:notice] = "Room was successfully updated."
-#      redirect_to :action => "show", :id => params[:id]
       redirect_to :action => "index"
     else
-      render :action => "edit", :id => params[:id]
+      flash[:notice] = "ルームの更新に失敗しました。"
+      @submit = "update"
+      render :action => "edit"
     end
   end
 
@@ -63,21 +63,19 @@ class RoomsController < ApplicationController
   # destroy #
   #---------#
   def destroy
-    @room = Room.find( params[:id] )
+    @room = Room.where( :id => params[:id] ).first
+    redirect_to :action => "index" and return if @room.blank?
+
     @room.destroy
 
     redirect_to :action => "index"
   end
 
-
-
-#----------
-
   #------#
   # show #
   #------#
   def show
-    @room = Room.where( "id = ?", params[:id] ).first( :include => "user" )
+    @room = Room.where( :id => params[:id] ).first( :include => "user" )
     redirect_to :action => "index" and return if @room.blank?
     
     params[:tweet_page] = 1 if params[:tweet_page].blank? or params[:tweet_page].to_i <= 0
@@ -90,39 +88,18 @@ class RoomsController < ApplicationController
   # post #
   #------#
   def post
-#    @room = Room.find_by_args( :id => params[:room_id] )
-    @room = Room.where( "id = ?", params[:id] ).first
+    @room = Room.where( :id => params[:id] ).first
     redirect_to :action => "index" and return if @room.blank?
 
-    print "[ params[:tweet] ] : "; p params[:tweet] ;
-
-#    @tweet = params[:tweet]
-#    post_tweet = params[:tweet][:post].presence
-    print "[ params[:tweet][:post].presence ] : "; p params[:tweet][:post].presence ;
-#    @tweet.user_id = session[:user_id]
-#    @tweet.room_id = @room.id
     post_tweet = "#{params[:tweet][:post].presence} #{@room.hash_tag}"
 
     # Twitter投稿
-    #    if @room.synchro_flag == "ON"
-      if current_user.twitter.post( '/statuses/update.json', :status => post_tweet )
-        flash[:tweet_notice] = "Twitterへの投稿が完了しました。"
-      else
-        flash[:tweet_notice] = "<span style=\"color: red;\">Twitterへの投稿に失敗しました。</span>"
-      end
-    #end
+    if current_user.twitter.post( '/statuses/update.json', :status => post_tweet )
+      flash[:tweet_notice] = "Twitterへの投稿が完了しました。"
+    else
+      flash[:tweet_notice] = "<span style=\"color: red;\">Twitterへの投稿に失敗しました。</span>"
+    end
     
-    # DB保存
-    #    if @room.keep_flag == "ON"
-    #  unless @tweet.save
-    #    flash[:tweet_notice] = "Tweetの保管に失敗しました。"
-    #  end
-    #end
-
-    #if @room.synchro_flag == "OFF" and @room.keep_flag == "OFF"
-    #  flash[:tweet_notice] = "<span style=\"color: red;\">Twitter連携もしくはTweet保管をONにして下さい。</span>"
-    #end
-
     redirect_to :action => "show", :id => params[:id] and return
   end
   
