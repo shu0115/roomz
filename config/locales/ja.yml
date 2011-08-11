@@ -23,7 +23,7 @@ ja:
     user: オーナー
     name: 名前
     hash_tag: ハッシュタグ
-    site: サイトURL
+    site: サイト
 
   tweet:
     post: Tweet

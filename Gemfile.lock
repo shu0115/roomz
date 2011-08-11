@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/rails/prototype_legacy_helper.git
+  revision: a2cd95c3e3c1a4f7a9566efdab5ce59c886cb05f
+  specs:
+    prototype_legacy_helper (0.0.0)
+
+GIT
   remote: git://github.com/rokudenashi/twitter-auth.git
   revision: 5d38d5e8c50a183bedd79dbea665bbb4c8ff2d32
   branch: rails_3
@@ -99,6 +105,7 @@ DEPENDENCIES
   heroku
   json
   oauth
+  prototype_legacy_helper (= 0.0.0)!
   rails (= 3.0.9)
   rake (= 0.8.7)
   sqlite3
