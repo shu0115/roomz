@@ -10,13 +10,6 @@ class RoomsController < ApplicationController
     @rooms = Room.all( :include => "user" )
   end
 
-  #------#
-  # show #
-  #------#
-  #  def show
-  #  @room = Room.find( params[:id] )
-  #end
-
   #-----#
   # new #
   #-----#
@@ -84,9 +77,7 @@ class RoomsController < ApplicationController
   # show #
   #------#
   def show
-    @room = Room.where( "id = ?", params[:id] ).first
-#    @tweet = Tweet.new
-#    @tweets = Tweet.paginate_by_args_option( { :room_id => params[:room_id] }, { :page => params[:page], :per_page => $per_page, :order => "created_at DESC", :include => [ "room", "user" ] }  )
+    @room = Room.where( "id = ?", params[:id] ).first( :include => "user" )
     redirect_to :action => "index" and return if @room.blank?
     
     params[:tweet_page] = 1 if params[:tweet_page].blank? or params[:tweet_page].to_i <= 0

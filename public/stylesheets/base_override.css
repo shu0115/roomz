@@ -4,6 +4,28 @@ td, th {
   border: 0px solid #aaa;
 }
 
+img{
+  vertical-align: text-bottom;
+}
+
+/*
+.info img, .info a{
+  line-height: 20px;
+  height: 20px;
+  display: inline-block;
+  -webkit-border-horizontal-spacing: 0px;
+  -webkit-border-vertical-spacing: 0px;
+  margin: 0px;
+  padding: 0px;
+  vertical-align: middle;
+}
+
+.info{
+  line-height: 20px;
+  vertical-align: middle;
+}
+*/
+
 .pagination .current_link {
   padding: 2px 5px 2px 5px;
   margin: 2px;

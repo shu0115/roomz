@@ -1,15 +1,30 @@
 <%# ルーム情報 %>
 <table>
-  <tr>
+  <tr class="info">
     <td style="white-space: nowrap;">
       <%# ハッシュタグ %>
       <%= t("room.hash_tag") %>：<%= @room.hash_tag %><br />
-      
+    </td>
+  </tr>
+
+  <tr class="info">
+    <td style="white-space: nowrap;">
       <%# サイトURL %>
       <%= t("room.site") %>：<%= link_to @room.site, @room.site, :target => "_blank" unless @room.site.blank? %><br />
-      
+    </td>
+  </tr>
+
+  <tr class="info">
+    <td style="white-space: nowrap;">
+      <%# オーナー %>
+      <%= t("room.user") %>：<%= link_to image_tag( @room.user.profile_image_url, :size => t("user.profile_size"), :alt => t("user.icon_alt"), :title => "#{@room.user.login}／#{@room.user.name}" ), "http://twitter.com/#!/#{@room.user.login}", :target => "_blank" unless @room.user.blank? %><br />
+    </td>
+  </tr>
+
+  <tr class="info">
+    <td style="white-space: nowrap;">
       <%# 検索 %>
-      検索：<%= link_to "Twitter", "http://twitter.com/#!/search/#{CGI.escape(@room.hash_tag)}", :target => "_blank" %>　<%= link_to "Masher", "http://masher.heroku.com/#{@room.hash_tag.sub!("#","")}", :target => "_blank" %>
+      検索：<%= link_to "Twitter", "http://twitter.com/#!/search/#{CGI.escape(@room.hash_tag)}", :target => "_blank" %>　<%= link_to "Masher", "http://masher.heroku.com/#{@room.hash_tag.sub("#","")}", :target => "_blank" %>
       <%#= link_to "Google", "http://www.google.co.jp/search?q=#{CGI.escape(@room.hash_tag)}&hl=ja&biw=1131&bih=754&prmd=ivns&source=lnms&tbs=mbl:1&ei=WxWTTcqGIJHqvQPT-Zi9CA&sa=X&oi=mode_link&ct=mode&cd=9&ved=0CB4Q_AUoCA&prmdo=1#q=#{CGI.escape(@room.hash_tag)}+site%3Atwitter.com&tbs=mbl:1&tbo=1&hl=ja&lr=lang_ja&prmdo=1&tbm=mbl&sa=X&ei=gM7lTYzGI4mOvQPOk5CECw&ved=0CCMQsQcwAA&bav=on.2,or.r_gc.r_pw.&fp=a7fd3f5679dbb192&biw=1123&bih=716", :target => "_blank" %>
       <br />
     </td>
@@ -17,12 +32,6 @@
 </table>
 
 <br />
-
-<%# メッセージ %>
-<% unless flash[:tweet_notice].blank? %>
-  <p style="color: green"><%= flash[:tweet_notice] %></p>
-  <br />
-<% end %>
 
 <%# メニュー %>
 <span class="menu">
@@ -33,8 +42,14 @@
 
 <br />
 
+<%# メッセージ %>
+<% unless flash[:tweet_notice].blank? %>
+  <p style="color: green"><%= flash[:tweet_notice] %></p>
+  <br />
+<% end %>
+
 <%# Tweet投稿 %>
-<% form_for :tweet, :url => { :action => "post", :id => @room.id } do |f| %>
+<%= form_for :tweet, :url => { :action => "post", :id => @room.id } do |f| %>
 <table>
   <tr>
     <%# ポスト %>
@@ -43,10 +58,8 @@
       <%= @room.hash_tag unless @room.blank? %>
       <span id="char_count"><%= 140 - 1 - @room.hash_tag.length %></span>
       
-      <%#= remote_function( :update => :char_count, :url => { :action => :char_count, :hash_tag_length => @room.hash_tag.length }, :with => "value" ) %>
-      
-      <%#= observe_field(
-        :post,
+      <%= observe_field(
+        :tweet_post,
         :frequency => 0.25,
         :update => :char_count,
         :url => { :action => :char_count, :hash_tag_length => @room.hash_tag.length },
