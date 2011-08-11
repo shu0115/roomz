@@ -9,7 +9,9 @@
       <%= t("room.site") %>：<%= link_to @room.site, @room.site, :target => "_blank" unless @room.site.blank? %><br />
       
       <%# 検索 %>
-      検索：<%= link_to "Twitter", "http://twitter.com/#!/search/#{CGI.escape(@room.hash_tag)}", :target => "_blank" %>　<%#= link_to "Google", "http://www.google.co.jp/search?q=#{CGI.escape(@room.hash_tag)}&hl=ja&biw=1131&bih=754&prmd=ivns&source=lnms&tbs=mbl:1&ei=WxWTTcqGIJHqvQPT-Zi9CA&sa=X&oi=mode_link&ct=mode&cd=9&ved=0CB4Q_AUoCA&prmdo=1#q=#{CGI.escape(@room.hash_tag)}+site%3Atwitter.com&tbs=mbl:1&tbo=1&hl=ja&lr=lang_ja&prmdo=1&tbm=mbl&sa=X&ei=gM7lTYzGI4mOvQPOk5CECw&ved=0CCMQsQcwAA&bav=on.2,or.r_gc.r_pw.&fp=a7fd3f5679dbb192&biw=1123&bih=716", :target => "_blank" %><br />
+      検索：<%= link_to "Twitter", "http://twitter.com/#!/search/#{CGI.escape(@room.hash_tag)}", :target => "_blank" %>　<%= link_to "Masher", "http://masher.heroku.com/#{@room.hash_tag.sub!("#","")}", :target => "_blank" %>
+      <%#= link_to "Google", "http://www.google.co.jp/search?q=#{CGI.escape(@room.hash_tag)}&hl=ja&biw=1131&bih=754&prmd=ivns&source=lnms&tbs=mbl:1&ei=WxWTTcqGIJHqvQPT-Zi9CA&sa=X&oi=mode_link&ct=mode&cd=9&ved=0CB4Q_AUoCA&prmdo=1#q=#{CGI.escape(@room.hash_tag)}+site%3Atwitter.com&tbs=mbl:1&tbo=1&hl=ja&lr=lang_ja&prmdo=1&tbm=mbl&sa=X&ei=gM7lTYzGI4mOvQPOk5CECw&ved=0CCMQsQcwAA&bav=on.2,or.r_gc.r_pw.&fp=a7fd3f5679dbb192&biw=1123&bih=716", :target => "_blank" %>
+      <br />
     </td>
   </tr>
 </table>

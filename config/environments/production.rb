@@ -46,4 +46,8 @@ Roomz::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  
+  # Twitter OAuth Local Setting
+  LOCAL_OAUTH_CONSUMER_KEY = ""
+  LOCAL_OAUTH_CONSUMER_SECRET = ""
 end
