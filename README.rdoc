@@ -47,4 +47,4 @@ app/controllers/sessions_controller.rb(New file)
 
 = Copyright
 
-Copyright (c) 2011 Shun Matsumoto.
+Copyright (c) 2011 Shun Matsumoto(@shu_0115).

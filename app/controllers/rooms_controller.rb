@@ -1,12 +1,19 @@
 # coding: utf-8
 class RoomsController < ApplicationController
-  
+  before_filter :login_authorize, :except => [ :index ]
+
   $per_page = 30
 
   #-------#
   # index #
   #-------#
   def index
+    if session[:user_id].present? and session[:access_url].present?
+      redirect_to session[:access_url]
+      session[:access_url] = nil
+      return
+    end
+    
     @rooms = Room.all( :include => :user )
   end
 
@@ -107,8 +114,20 @@ class RoomsController < ApplicationController
   # char_count #
   #------------#
   def char_count
-    render :text => ( 140 - 1 - params[:value].split(//u).length - params[:hash_tag_length].to_i )
+    render :text => ( 140 - 1 - params[:value].length - params[:hash_tag_length].to_i )
   end
 
+  private
+  
+  #-----------------#
+  # login_authorize #
+  #-----------------#
+  def login_authorize
+    if session[:user_id].blank?
+      session[:access_url] = request.url
+      flash[:notice] = "ログインして下さい。"
+      redirect_to :action => "index" and return
+    end
+  end
 
 end
