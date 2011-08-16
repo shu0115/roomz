@@ -101,10 +101,14 @@ class RoomsController < ApplicationController
     post_tweet = "#{params[:tweet][:post].presence} #{@room.hash_tag}"
 
     # Twitter投稿
-    if current_user.twitter.post( '/statuses/update.json', :status => post_tweet )
-      flash[:tweet_notice] = "Twitterへの投稿が完了しました。"
-    else
-      flash[:tweet_notice] = "<span style=\"color: red;\">Twitterへの投稿に失敗しました。</span>"
+    begin
+      if current_user.twitter.post( '/statuses/update.json', :status => post_tweet )
+        flash[:tweet_notice] = "<p style=\"color: green\">Twitterへの投稿が完了しました。</p>"
+      else
+        flash[:tweet_notice] = "<p style=\"color: red;\">Twitterへの投稿に失敗しました。</p>"
+      end
+    rescue => exc
+      flash[:tweet_notice] = "<p style=\"color: red;\">#{exc}</p>"
     end
     
     redirect_to :action => "show", :id => params[:id] and return

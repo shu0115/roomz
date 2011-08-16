@@ -44,7 +44,7 @@
 
 <%# メッセージ %>
 <% unless flash[:tweet_notice].blank? %>
-  <p style="color: green"><%= flash[:tweet_notice] %></p>
+  <%=raw flash[:tweet_notice] %>
   <br />
 <% end %>
 
@@ -52,12 +52,19 @@
 <%= form_for :tweet, :url => { :action => "post", :id => @room.id } do |f| %>
 <table>
   <tr>
-    <%# ポスト %>
+    <%# Tweet入力エリア %>
     <td style="white-space: nowrap;" colspan="4">
       <%= f.text_area :post, :size => "50x3" %>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="right">
+      <%# ハッシュタグ %>
       <%= @room.hash_tag unless @room.blank? %>
-      <span id="char_count"><%= 140 - 1 - @room.hash_tag.length %></span>
       
+      <%# 入力文字数カウント %>
+      <span id="char_count"><%= 140 - 1 - @room.hash_tag.length %></span>
       <%= observe_field(
         :tweet_post,
         :frequency => 0.25,
@@ -67,6 +74,7 @@
         )
       %>
       
+      <%# Tweetボタン %>
       <%= f.submit t("tweet.post"), :disable_with => t("tweet.post") %>
     </td>
   </tr>
@@ -78,13 +86,13 @@
 <%# アンカーターゲット %>
 <span id="tweet_top"></span>
 
-<%# Tweet検索結果がブランクでなければ %>
-<% unless @twitter_get["results"].blank? %>
-
 <%# Tweetページング %>
 <%= render :partial => "tweet_paging" %>
 
 <br />
+
+<%# Tweet検索結果がブランクでなければ %>
+<% unless @twitter_get["results"].blank? %>
 
 <%# Tweet検索結果 %>
 <table>
@@ -129,9 +137,10 @@
 <%= render :partial => "tweet_paging" %>
 
 <br />
-<br />
 
 <% end %>
+
+<br />
 
 <%# メニュー %>
 <span class="menu">
