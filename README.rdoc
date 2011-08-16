@@ -43,6 +43,11 @@ config/environments/development.rb
     require "#{Rails.root}/config/local_setting.rb"
   end
 
+config/environments/production.rb
+
+  LOCAL_OAUTH_CONSUMER_KEY = ""
+  LOCAL_OAUTH_CONSUMER_SECRET = ""
+
 config/application.rb
 
   module TwitterAuth
@@ -51,11 +56,6 @@ config/application.rb
       @config[environment] ||= YAML.load(ERB.new(File.read("#{Rails.root}/config/twitter_auth.yml")).result)[environment]
     end
   end
-
-config/environments/production.rb
-
-  LOCAL_OAUTH_CONSUMER_KEY = ""
-  LOCAL_OAUTH_CONSUMER_SECRET = ""
 
 app/controllers/sessions_controller.rb(New file)
 
