@@ -4,11 +4,34 @@ Room for Tweet.
 
 = Local Setting
 
+リポジトリ複製
+
+  GitHubリポジトリ - Fork
+
+  git clone git@github.com:YOUR_USER_NAME/roomz.git
+
+Twitterアプリ登録
+
+  http://dev.twitter.com/apps/new
+
+  Name: *
+    Roomz
+  Description: *
+    Room for Tweet.
+  WebSite: *
+    http://roomz.heroku.com/
+  Callback URL:
+    http://roomz.heroku.com/
+
 config/local_setting.rb
 
   # Twitter OAuth Local Setting
   LOCAL_OAUTH_CONSUMER_KEY = "YOUR_CONSUMER_KEY"
   LOCAL_OAUTH_CONSUMER_SECRET = "YOUR_CONSUMER_SECRET"
+
+ローカルサーバ起動
+
+ rails s
 
 = Add Setting
 
